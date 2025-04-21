@@ -31,8 +31,7 @@ jobs:
 
     - name: Push Docker image
       run: |
-        docker push duquejo/nest-graphql-actions:0.0.1 .
-      
+        docker push duquejo/nest-graphql-actions:0.0.1      
         
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
