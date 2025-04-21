@@ -31,15 +31,19 @@ jobs:
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
         echo "New version: $NEW_VERSION!!!!"
 
-    # - name: Build Docker image
-    #   run: |
-    #     docker build . --file Dockerfile --tag duquejo/nest-graphql-actions:0.0.1
+    - name: Build Docker image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker build . --file Dockerfile --tag duquejo/nest-graphql-actions:$NEW_VERSION
 
-    # - name: Push Docker image
-    #   run: |
-    #     docker push duquejo/nest-graphql-actions:0.0.1
+    - name: Push Docker image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker push duquejo/nest-graphql-actions:$NEW_VERSION
+        docker push duquejo/nest-graphql-actions:latest
